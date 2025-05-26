@@ -11,4 +11,4 @@ EXPOSE 5005
 WORKDIR /app
 
 # Bind to all interfaces, not just localhost
-CMD ["run", "--enable-api", "--cors", "*", "--debug", "--port", "5005", "--host", "0.0.0.0"]
+CMD ["run", "--enable-api", "--cors", "*", "--debug", "--port", "5005"]
