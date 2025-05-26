@@ -3,16 +3,12 @@ services:
     runtime: docker
     name: rasa-pro
     plan: starter
-    buildCommand: docker build -t rasa-pro .
     envVars:
       - key: RASA_PRO_LICENSE
         sync: false
       - key: OPENAI_API_KEY
         sync: false
-      - key: PORT
-        value: 5005
     disk:
       name: rasa-models
       mountPath: /app/models
       sizeGB: 10
-    healthCheckPath: /
