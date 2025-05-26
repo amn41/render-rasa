@@ -1,4 +1,4 @@
-FROM rasa/rasa-pro:latest
+FROM europe-west3-docker.pkg.dev/rasa-releases/rasa-pro/rasa-pro:latest
 
 # Copy configuration files
 COPY endpoints.yml /app/
