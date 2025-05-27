@@ -1,0 +1,46 @@
+# Name for the DigitalOcean App
+name: rasa-pro-app
+
+# Services to be deployed
+services:
+- name: rasa-pro
+  # Build the image from the Dockerfile in the root directory
+  dockerfile_path: Dockerfile
+  
+  # The instance size slug. 'basic-xs' is a good starting point, similar to Render's starter plan.
+  # Other options: 'basic-s', 'professional-xs', etc.
+  instance_size_slug: basic-xs
+  instance_count: 1
+
+  # HTTP port the service listens on
+  http_port: 5005
+
+  # Routes for incoming traffic
+  routes:
+  - path: /
+
+  # Environment variables
+  # NOTE: Set the actual secret values in the DigitalOcean App Platform UI after deployment.
+  envs:
+  - key: RASA_PRO_LICENSE
+    scope: RUN_TIME
+    type: SECRET
+    value: "" # Leave empty, will be set in the UI
+  - key: OPENAI_API_KEY
+    scope: RUN_TIME
+    type: SECRET
+    value: "" # Leave empty, will be set in the UI
+
+  # Attach a persistent storage volume
+  # This replaces the 'disk' section from your render.yaml
+  volumes:
+  - name: rasa-models
+    mount_path: /app/models
+    # Specifies that the contents of this volume should be available at build time
+    # This is important for when you retrain and save new models.
+    bind_to_build: true
+
+# Definition for the persistent volume
+volumes:
+- name: rasa-models
+  size_gb: 10
